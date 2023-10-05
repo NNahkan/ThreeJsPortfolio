@@ -10,7 +10,8 @@ import { slideIn } from "../utils/motion";
 const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const userId = import.meta.env.VITE_EMAILJS_USER_ID;
-
+const myEmail = import.meta.env.VITE_EMAILJS_EMAIL;
+ 
 const Contact = () => {
   const formRef = useRef();
   const [form, setForm] = useState({
@@ -28,11 +29,20 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //  setLoading(true);
     setLoading(true);
 
     emailjs
       .send(
+        serviceId,
+        templateId,
+        {
+          from_name: form.name,
+          to_name: "Ali",
+          from_email: form.email,
+          to_email: myEmail,
+          message: form.message,
+        },
+        userId
       )
       .then(
         () => {
@@ -69,7 +79,7 @@ const Contact = () => {
           className="mt-12 flex flex-col gap-8"
         >
           <label className="flex flex-col">
-            <span className="text-white font-medium mb-4"> Your Name</span>
+            <span className="text-white font-medium mb-4"> Yourr Name</span>
             <input
               type="text"
               name="name"
